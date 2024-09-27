@@ -3,7 +3,7 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    // Dictionary to map closing brackets to opening brackets
+    // Dictionary to map closing brackets to their corresponding opening brackets
     const bracketMap = {
         ')': '(',
         '}': '{',
@@ -17,19 +17,26 @@ var isValid = function(s) {
     for (let char of s) {
         // If the character is a closing bracket
         if (bracketMap[char]) {
-            // Pop the top element from stack if it is non-empty, otherwise assign a dummy value '#'
+            // Pop the top element from the stack if it is non-empty, otherwise assign a dummy value '#'
             let topElement = stack.length > 0 ? stack.pop() : '#';
-            
+
             // If the top element doesn't match the corresponding opening bracket
             if (bracketMap[char] !== topElement) {
-                return false;
+                return false; // Return false if there is a mismatch
             }
         } else {
-            // If it's an opening bracket, push it to the stack
+            // If it's an opening bracket, push it onto the stack
             stack.push(char);
         }
     }
 
     // At the end, the stack should be empty for a valid expression
-    return stack.length === 0;
+    return stack.length === 0; // Return true if stack is empty, false otherwise
 };
+
+// Example test cases to validate the function
+console.log(isValid("()"));      // Output: true
+console.log(isValid("()[]{}"));  // Output: true
+console.log(isValid("(]"));      // Output: false
+console.log(isValid("([)]"));    // Output: false
+console.log(isValid("{[]}"));    // Output: true
