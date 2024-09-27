@@ -17,7 +17,7 @@ var romanToInt = function(s) {
     let total = 0; // Total value to return
     let prevValue = 0; // Value of the previous numeral
 
-    // Iterate through each character in the string
+    // Iterate through each character in the string from right to left
     for (let i = s.length - 1; i >= 0; i--) {
         const currentValue = romanMap[s[i]]; // Get the value of the current numeral
 
@@ -36,4 +36,5 @@ var romanToInt = function(s) {
     return total; // Return the final total
 };
 
+// Export the function for testing
 module.exports = { romanToInt };
