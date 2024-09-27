@@ -3,39 +3,33 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    // Stack to keep track of opening brackets
-    let stack = [];
-    
-    // Dictionary to map closing brackets to their corresponding opening brackets
-    const mapping = {
+    // Dictionary to map closing brackets to opening brackets
+    const bracketMap = {
         ')': '(',
         '}': '{',
         ']': '['
     };
-    
-    // Iterate over each character in the string
-    for (let i = 0; i < s.length; i++) {
-        let char = s[i];
-        
+
+    // Stack to keep track of the opening brackets
+    let stack = [];
+
+    // Traverse through each character in the string
+    for (let char of s) {
         // If the character is a closing bracket
-        if (mapping[char]) {
-            // Get the top element of the stack, or assign a dummy value if the stack is empty
-            let topElement = stack.length === 0 ? '#' : stack.pop();
+        if (bracketMap[char]) {
+            // Pop the top element from stack if it is non-empty, otherwise assign a dummy value '#'
+            let topElement = stack.length > 0 ? stack.pop() : '#';
             
-            // If the bracket doesn't match, return false
-            if (topElement !== mapping[char]) {
+            // If the top element doesn't match the corresponding opening bracket
+            if (bracketMap[char] !== topElement) {
                 return false;
             }
         } else {
-            // It's an opening bracket, so push it to the stack
+            // If it's an opening bracket, push it to the stack
             stack.push(char);
         }
     }
-    
-    // If the stack is empty, the string is valid
+
+    // At the end, the stack should be empty for a valid expression
     return stack.length === 0;
 };
-
-module.exports = { isValid };
-
-
